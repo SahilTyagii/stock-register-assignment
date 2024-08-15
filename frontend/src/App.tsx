@@ -1,10 +1,13 @@
+import SideBarDesktop from "./components/SideBarDesktop"
+import ManageStaff from "./pages/ManageStaff"
 
 function App() {
 
   return (
-    <>
-      <h1>React App</h1>
-    </>
+    <main>
+      <SideBarDesktop />
+      <ManageStaff />
+    </main>
   )
 }
 
