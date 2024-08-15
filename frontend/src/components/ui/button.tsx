@@ -21,6 +21,10 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         sidebar: "w-full bg-inherit hover:bg-[#1602FF] text-[#AB8484] hover:text-white rounded-none text-xl justify-start my-2",
         blue: "bg-[#1602FF] my-auto text-white hover:bg-blue-900 w-32 h-10 rounded-sm mr-4",
+        storeSelect: "bg-[#1602FF] text-white border border-[#1602FF] hover:bg-white hover:text-[#AB8484] hover:border-[#AB8484] hover:border font-normal rounded-full",
+        storePressed: "bg-white text-[#AB8484] border-[#AB8484] border font-normal rounded-full",
+        outlineBlack: "border border-black bg-background shadow-sm hover:bg-black hover:text-white w-32 rounded-sm mx-2",
+        outlineRed: "border border-red-600 text-red-600 bg-background shadow-sm hover:bg-red-600 hover:text-white w-24 rounded-sm mx-2",
       },
       size: {
         default: "h-9 px-4 py-2",
