@@ -26,6 +26,8 @@ import {
     DialogHeader,
     DialogTitle,
   } from "@/components/ui/dialog"
+import { useAppDispatch } from '@/app/hooks';
+import { createStaff } from '@/features/StaffSlice';
 
 const formSchema = z.object({
     name: z.string().min(2, { message: "Name must be at least 2 characters." }).max(25, { message: "Name must be at most 25 characters." }).regex(/^[a-zA-Z\s]*$/, { message: "Name must only contain letters." }),
@@ -41,6 +43,7 @@ interface StaffFormProps {
 }
 
 const StaffForm: React.FC<StaffFormProps> = ({ addStaff, setAddStaff }) => {
+    const dispatch = useAppDispatch();
     const [currentRole, setCurrentRole] = useState<string>("No Role");
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -57,6 +60,13 @@ const StaffForm: React.FC<StaffFormProps> = ({ addStaff, setAddStaff }) => {
     function onSubmit(data: z.infer<typeof formSchema>) {
         data.mobile = data.code + data.mobile;
         console.log(data);
+        dispatch(createStaff({
+            _id: '',
+            name: data.name,
+            mobile: data.mobile,
+            role: data.role,
+            store: data.store
+        }));
         setAddStaff(false);
     }
 
@@ -75,7 +85,6 @@ const StaffForm: React.FC<StaffFormProps> = ({ addStaff, setAddStaff }) => {
         { role: "Sales Purchase Operator", permissions: ["View opening stock, remaining stock of all items", "Add sale entry, stock out entry", "Add new party", "View added sale bill and share to party"] },
     ];
 
-    // Get permissions for the current role
     const currentPermissions = permissions.find(p => p.role === currentRole)?.permissions || [];
 
     return (

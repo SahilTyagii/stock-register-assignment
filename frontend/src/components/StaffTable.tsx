@@ -9,33 +9,57 @@ import {
     TableRow,
   } from "@/components/ui/table"
 import { Button } from './ui/button'
-  
+import { Staff, updateRole } from '@/features/StaffSlice'
+import { useAppDispatch } from '@/app/hooks'
+interface StaffTableProps {
+    staff: Staff[]
+}
 
-const StaffTable: React.FC = () => {
+
+const StaffTable: React.FC<StaffTableProps> = ({ staff }) => {
+    const dispatch = useAppDispatch()
+
+    const removeRole = (id: string) => {
+        dispatch(updateRole({_id: id, role: 'No Role'}))
+        window.location.reload()
+    }
+
   return (
     <div>
         <Table>
             <TableCaption>A list of all staff members.</TableCaption>
             <TableHeader>
                 <TableRow>
-                <TableHead>Staff</TableHead>
+                <TableHead className='w-[150px]'>Staff</TableHead>
                 <TableHead className="w-[200px]">Mobile Number</TableHead>
                 <TableHead>Role</TableHead>
                 <TableHead className="text-right"></TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
-                <TableRow>
-                <TableCell>Sahil</TableCell>
-                <TableCell>+919582053271</TableCell>
-                <TableCell>Sales Operator</TableCell>
-                <TableCell className="text-right">
-                    <div>
-                        <Button variant="outlineBlack">Remove Role</Button>
-                        <Button variant="outlineRed">Delete Staff</Button>
-                    </div>
-                </TableCell>
-                </TableRow>
+                {
+                    staff.map((s, index) => (
+                        <TableRow key={index}>
+                        <TableCell>{s.name}</TableCell>
+                        <TableCell>{s.mobile}</TableCell>
+                        <TableCell>{s.role}</TableCell>
+                        <TableCell className="text-right">
+                            <div>
+                                {
+                                    s.role === 'No Role' ? <Button variant="outlineBlack">Add Role</Button> : (
+                                        <>
+                                            <Button variant="outlineBlack">Change Role</Button>
+                                            <Button variant="outlineBlack" onClick={() => {removeRole(s._id)}}>Remove Role</Button>
+                                        </>
+                                    )
+                                }
+                                <Button variant="outlineBlack">Rename Staff</Button>
+                                <Button variant="outlineRed">Delete Staff</Button>
+                            </div>
+                        </TableCell>
+                        </TableRow>
+                    ))
+                }
             </TableBody>
         </Table>
 
