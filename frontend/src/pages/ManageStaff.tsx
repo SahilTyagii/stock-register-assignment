@@ -2,16 +2,6 @@ import Navbar from '@/components/Navbar'
 import StaffTable from '@/components/StaffTable'
 import { Button } from '@/components/ui/button'
 import React, { useState } from 'react'
-import {
-    Dialog,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    // DialogTrigger,
-  } from "@/components/ui/dialog"
-// import { Input } from '@/components/ui/input'
-// import { Label } from '@/components/ui/label'
 import StaffForm from '@/components/StaffForm'
 
 const ManageStaff: React.FC = () => {
@@ -30,14 +20,9 @@ const ManageStaff: React.FC = () => {
             <Button variant={store === 1 ? 'storePressed' : 'storeSelect'} onClick={() => setStore(1)}>Store B</Button>
         </div>
         <StaffTable />
-        <Dialog open={addStaff} onOpenChange={setAddStaff}>
-            <DialogContent className="sm:max-w-[500px]">
-                <DialogHeader>
-                    <DialogTitle>Add Staff</DialogTitle>
-                </DialogHeader>
-                <StaffForm />
-            </DialogContent>
-        </Dialog>
+        
+                <StaffForm addStaff={addStaff} setAddStaff={setAddStaff}/>
+            
     </div>
   )
 }
