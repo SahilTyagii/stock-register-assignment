@@ -25,6 +25,14 @@ const ManageStaff: React.FC = () => {
         setAddStaff(true);
     }
 
+    const filteredStaff = staff.filter((s) => {
+        return (store === 0 && s.store === 'Store A') || (store === 1 && s.store === 'Store B')
+    })
+
+    const refreshStaffData =() => {
+        dispatch(fetchAllStaff())
+    }
+
     return (
         <div className='ml-[180px] bg-[#F8F8FF] h-screen font-light'>
             <Navbar onAddStaffClick={handleAddStaffClick} />
@@ -32,7 +40,7 @@ const ManageStaff: React.FC = () => {
                 <Button variant={store === 0 ? 'storePressed' : 'storeSelect'} onClick={() => setStore(0)}>Store A</Button>
                 <Button variant={store === 1 ? 'storePressed' : 'storeSelect'} onClick={() => setStore(1)}>Store B</Button>
             </div>
-            <StaffTable staff={staff} />
+            <StaffTable staff={filteredStaff} refreshStaffData={refreshStaffData} />
             <StaffForm addStaff={addStaff} setAddStaff={setAddStaff} />
         </div>
     )
